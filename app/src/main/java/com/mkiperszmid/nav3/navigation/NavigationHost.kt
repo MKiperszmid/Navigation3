@@ -1,5 +1,9 @@
 package com.mkiperszmid.nav3.navigation
 
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -50,6 +54,18 @@ fun NavigationHost(modifier: Modifier = Modifier) {
                     viewModel = viewModel { DetailViewModel(it.person) }
                 )
             }
+        },
+        transitionSpec = {
+            ContentTransform(
+                slideInHorizontally(initialOffsetX = { it }),
+                slideOutHorizontally(targetOffsetX = { -it })
+            )
+        },
+        popTransitionSpec = {
+            ContentTransform(
+                slideInHorizontally(initialOffsetX = { -it }),
+                slideOutHorizontally(targetOffsetX = { it })
+            )
         }
     )
 }
