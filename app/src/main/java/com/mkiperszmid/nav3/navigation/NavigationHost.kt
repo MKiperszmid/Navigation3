@@ -15,6 +15,7 @@ import kotlinx.serialization.Serializable
 sealed interface NavigationDestination : NavKey {
     @Serializable
     data class Details(val person: Person) : NavigationDestination
+
     @Serializable
     data object Home : NavigationDestination
 }
@@ -31,11 +32,11 @@ fun NavigationHost(modifier: Modifier = Modifier) {
         entryProvider = entryProvider {
             entry<NavigationDestination.Home> {
                 HomeScreen(onGenerateClick = {
-
+                    backStack.add(NavigationDestination.Details(it))
                 })
             }
             entry<NavigationDestination.Details> {
-                DetailScreen()
+                DetailScreen(it.person)
             }
         }
     )
