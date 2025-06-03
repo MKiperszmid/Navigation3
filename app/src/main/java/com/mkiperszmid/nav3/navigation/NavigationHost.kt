@@ -2,12 +2,14 @@ package com.mkiperszmid.nav3.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.mkiperszmid.nav3.detail.DetailScreen
+import com.mkiperszmid.nav3.detail.DetailViewModel
 import com.mkiperszmid.nav3.home.HomeScreen
 import kotlinx.serialization.Serializable
 
@@ -36,7 +38,9 @@ fun NavigationHost(modifier: Modifier = Modifier) {
                 })
             }
             entry<NavigationDestination.Details> {
-                DetailScreen(it.person)
+                DetailScreen(
+                    viewModel = viewModel { DetailViewModel(it.person) }
+                )
             }
         }
     )

@@ -8,13 +8,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.mkiperszmid.nav3.navigation.Person
 
 @Composable
-fun DetailScreen(person: Person) {
+fun DetailScreen(
+    viewModel: DetailViewModel
+) {
+    val state = viewModel.state
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Box(modifier = Modifier.padding(it), contentAlignment = Alignment.Center) {
-            Text("Detalle de ${person.name} con edad de ${person.age}")
+            Text("Detalle de ${state.person.name} con edad de ${state.person.age}")
         }
     }
 }
