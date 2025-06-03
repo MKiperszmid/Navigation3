@@ -3,11 +3,14 @@ package com.mkiperszmid.nav3.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.mkiperszmid.nav3.detail.DetailScreen
 import com.mkiperszmid.nav3.detail.DetailViewModel
 import com.mkiperszmid.nav3.home.HomeScreen
@@ -31,6 +34,11 @@ fun NavigationHost(modifier: Modifier = Modifier) {
     NavDisplay(
         modifier = modifier,
         backStack = backStack,
+        entryDecorators =
+            listOf(
+                rememberSceneSetupNavEntryDecorator(), rememberSavedStateNavEntryDecorator(),
+                rememberViewModelStoreNavEntryDecorator()
+            ),
         entryProvider = entryProvider {
             entry<NavigationDestination.Home> {
                 HomeScreen(onGenerateClick = {
