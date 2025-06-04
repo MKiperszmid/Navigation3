@@ -4,6 +4,9 @@ import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.navigation3.ListDetailSceneStrategy
+import androidx.compose.material3.adaptive.navigation3.rememberListDetailSceneStrategy
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,6 +37,7 @@ sealed interface NavigationDestination : NavKey {
 @Serializable
 data class Person(val name: String, val age: Int)
 
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun NavigationHost(modifier: Modifier = Modifier) {
     val backStack = rememberNavBackStack(NavigationDestination.Home)
@@ -49,6 +53,7 @@ fun NavigationHost(modifier: Modifier = Modifier) {
         entryProvider = entryProvider {
             entry<NavigationDestination.Home>(
                 //metadata = TwoPaneScene.twoPane()
+                metadata = ListDetailSceneStrategy.listPane()
             ) {
                 HomeScreen(onGenerateClick = {
                     backStack.add(NavigationDestination.Details(it))
@@ -57,12 +62,14 @@ fun NavigationHost(modifier: Modifier = Modifier) {
             entry<NavigationDestination.Details>(
                 //metadata = DialogSceneStrategy.dialog()
                 //metadata = TwoPaneScene.twoPane()
+                metadata = ListDetailSceneStrategy.detailPane()
             ) {
                 DetailScreen(
                     viewModel = viewModel { DetailViewModel(it.person) }
                 )
             }
         },
+        sceneStrategy = rememberListDetailSceneStrategy(),
         //sceneStrategy = DialogSceneStrategy(),//TwoPaneSceneStrategy(),
         transitionSpec = {
             ContentTransform(

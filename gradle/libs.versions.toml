@@ -12,6 +12,7 @@ composeBom = "2025.05.01"
 navigation3Core = "1.0.0-alpha02"
 navigation3Lifecycle = "1.0.0-alpha01"
 material3Adaptive = "1.2.0-alpha06"
+navigation3Adaptive = "1.0.0-SNAPSHOT"
 kotlinSerialization = "2.1.21"
 kotlinxSerializationCore = "1.8.1"
 
@@ -39,6 +40,7 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationCore" }
 androidx-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive", version.ref = "material3Adaptive" }
+androidx-material3-adaptive-navigation3 = { module = "androidx.compose.material3.adaptive:adaptive-navigation3", version.ref = "navigation3Adaptive" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
