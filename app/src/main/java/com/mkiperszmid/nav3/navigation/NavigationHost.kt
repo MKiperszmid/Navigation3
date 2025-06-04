@@ -13,7 +13,9 @@ import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
+import androidx.navigation3.ui.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.SinglePaneSceneStrategy
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.mkiperszmid.nav3.detail.DetailScreen
 import com.mkiperszmid.nav3.detail.DetailViewModel
@@ -40,21 +42,28 @@ fun NavigationHost(modifier: Modifier = Modifier) {
         backStack = backStack,
         entryDecorators =
             listOf(
-                rememberSceneSetupNavEntryDecorator(), rememberSavedStateNavEntryDecorator(),
+                rememberSceneSetupNavEntryDecorator(),
+                rememberSavedStateNavEntryDecorator(),
                 rememberViewModelStoreNavEntryDecorator()
             ),
         entryProvider = entryProvider {
-            entry<NavigationDestination.Home> {
+            entry<NavigationDestination.Home>(
+                //metadata = TwoPaneScene.twoPane()
+            ) {
                 HomeScreen(onGenerateClick = {
                     backStack.add(NavigationDestination.Details(it))
                 })
             }
-            entry<NavigationDestination.Details> {
+            entry<NavigationDestination.Details>(
+                //metadata = DialogSceneStrategy.dialog()
+                //metadata = TwoPaneScene.twoPane()
+            ) {
                 DetailScreen(
                     viewModel = viewModel { DetailViewModel(it.person) }
                 )
             }
         },
+        //sceneStrategy = DialogSceneStrategy(),//TwoPaneSceneStrategy(),
         transitionSpec = {
             ContentTransform(
                 slideInHorizontally(initialOffsetX = { it }),

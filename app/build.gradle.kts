@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.material3.adaptive)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
